@@ -1,8 +1,8 @@
 #include "pch.h"
-#include "Polinom.h"
+#include "../Polinoms/Polinoms.h"
 
 TEST(Node, can_create_node) {
-	ASSERT_NO_THROW(Node<int> node(1,1));
+	ASSERT_NO_THROW(Node<int> node(1, 1));
 }
 
 TEST(List, can_create_List) {
@@ -20,24 +20,26 @@ TEST(List, can_get_size) {
 }
 
 TEST(List, can_push_back) {
-	List<int> lst();
+	List<int> lst;
 	ASSERT_NO_THROW(lst.push_back(1, 1));
 }
 
 TEST(List, can_push_front) {
-	List<int> lst();
+	List<int> lst;
+	lst.push_back(1, 2);
 	ASSERT_NO_THROW(lst.push_front(1, 1));
 }
 
 TEST(List, can_pop_front) {
-	List<int> lst();
+	List<int> lst;
 	lst.push_back(1, 1);
 	ASSERT_NO_THROW(lst.pop_front());
 }
 
 TEST(List, can_pop_back) {
-	List<int> lst();
+	List<int> lst;
 	lst.push_back(1, 1);
+	lst.push_back(3, 2);
 	ASSERT_NO_THROW(lst.pop_back());
 }
 
@@ -53,9 +55,9 @@ TEST(List, can_clear_list) {
 }
 
 TEST(List, can_insert_element) {
-	List<int> lst();
+	List<int> lst;
 	lst.push_back(1, 1);
-	ASSERT_NO_THROW(lst.insert(5, 7, 1);
+	ASSERT_NO_THROW(lst.insert(5, 7, 1));
 }
 
 TEST(List, can_remove_element) {
@@ -70,7 +72,7 @@ TEST(List, can_remove_element) {
 }
 
 TEST(List, can_swap) {
-	List<int> lst();
+	List<int> lst;
 	for (int i = 0; i < 5; i++)
 	{
 		lst.push_back(1, 1);
@@ -84,7 +86,7 @@ TEST(Polinom, can_create_polinom) {
 
 TEST(Polinom, can_be_assigned_a_polynomial) {
 
-	Polynom<int> pol, pol1;
+	Polinom<int> pol, pol1;
 	for (int i = 0; i < 5; i++)
 	{
 		pol.push_back(1, 1);

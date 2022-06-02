@@ -14,13 +14,13 @@ class Node
     friend Polinom<T1>;
 
     template <typename V>
-    friend void Sort(List<V>& lst);
+    friend void Sort(Polinom<V>& lst);
 
     template <typename V>
-    friend void CompressionPolinom(List<V>& lst);//приведение подобных слагаемых
+    friend void CompressionPolinom(Polinom<V>& lst);//приведение подобных слагаемых
 
     template <typename V>
-    friend void RemoveZeros(List<V>& lst);
+    friend void RemoveZeros(Polinom<V>& lst);
 
     template <typename V>
     friend Polinom<V>& MergePolinoms(Polinom<V>& pol_1, Polinom<V>& pol_2, Polinom<V>& merge);
@@ -47,7 +47,7 @@ template <typename T>
 class List
 {
     template <typename V>
-    friend void Sort(List<V>& lst);//сортировка списка по data1(степеням)
+    friend void Sort(Polinom<V>& lst);//сортировка списка по data1(степеням)
 
     template <typename V>
     friend Polinom<V>& MergePolinoms(Polinom<V>& pol_1, Polinom<V>& pol_2, Polinom<V>& merge);
@@ -75,8 +75,34 @@ public:
     void removeAt(const int index);//удаление узла по индексу
     Node<T>& operator[](const int index);//
     void swap(int left, int right);//перестановка узлов
+    bool operator==(const List<T>& other);
 
 };
+
+template <typename T>
+bool List<T>::operator==(const List<T>& other)
+{
+    bool flag = true;
+
+    Node<T>* current1 = this->head;
+    Node<T>* current2 = other.head;
+
+    while (current1->pNext != nullptr && current2->pNext != nullptr)
+    {
+        if (current1->data == current2->data && current1->data1 == current2->data1)
+        {
+            current1 = current1->pNext;
+            current2 = current2->pNext;
+        }
+        else
+        {
+            flag = false;
+            break;
+        }
+    }
+
+    return flag;
+}
 
 template <typename T>
 List<T>::List()
@@ -116,9 +142,9 @@ void List<T>::pop_front()
 {
     if (head != nullptr)
     {
-        Node<T>* saver = this->head;
+        Node<T>* saver = this->head->pNext;
         delete head;
-        head = saver->pNext;
+        head = saver;
         Size--;
     }
     else {

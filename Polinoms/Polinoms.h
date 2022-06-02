@@ -17,7 +17,34 @@ public:
     Polinom<T>& operator= (Polinom<T>& pol);
 
     void scMult(const T scalar);
+
+    bool operator==(const Polinom<T>& other) const;
 };
+
+template <typename T>
+bool Polinom<T>::operator==(const Polinom<T>& other) const
+{
+    bool flag = true;
+
+    Node<T>* current1 = this->head;
+    Node<T>* current2 = other.head;
+
+    while (current1->pNext != nullptr && current2->pNext != nullptr)
+    {
+        if (current1->data == current2->data && current1->data1 == current2->data1)
+        {
+            current1 = current1->pNext;
+            current2 = current2->pNext;
+        }
+        else
+        {
+            flag = false;
+            break;
+        }
+    }
+
+    return flag;
+}
 
 template <typename T>
 void List<T>::swap(int left, int right)
@@ -80,7 +107,7 @@ void List<T>::swap(int left, int right)
 }
 
 template <typename T>
-void Sort(List<T>& lst)
+void Sort(Polinom<T>& lst)
 {
     for (int i = 0; i < lst.GetSize(); i++)
     {
@@ -95,7 +122,7 @@ void Sort(List<T>& lst)
 }
 
 template <typename V>
-void CompressionPolinom(List<V>& lst)
+void CompressionPolinom(Polinom<V>& lst)
 {
     Sort(lst);
     for (int i = 0; i < lst.GetSize() - 1; i++)
@@ -110,7 +137,7 @@ void CompressionPolinom(List<V>& lst)
 }
 
 template <typename T>
-void RemoveZeros(List<T>& lst)
+void RemoveZeros(Polinom<T>& lst)
 {
     for (int i = 0; i < lst.GetSize(); i++)
     {
